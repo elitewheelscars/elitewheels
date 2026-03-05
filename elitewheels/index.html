@@ -139,16 +139,29 @@
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
+        /* Mobile responsiveness improvements */
+        @media (max-width: 640px) {
+            .font-serif.text-5xl {
+                font-size: 2.5rem;
+                line-height: 1.2;
+            }
+            .font-serif.text-4xl {
+                font-size: 2rem;
+            }
+            .font-serif.text-3xl {
+                font-size: 1.75rem;
+            }
+        }
     </style>
 </head>
 <body class="font-sans text-gray-800 bg-gray-50 overflow-x-hidden">
 
     <!-- Navigation -->
     <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 nav-transparent text-white">
-        <div class="container mx-auto px-6 flex justify-between items-center">
+        <div class="container mx-auto px-4 sm:px-6 flex justify-between items-center">
             <div class="flex items-center space-x-2">
                 <i class="fas fa-crown text-brand-yellow text-2xl"></i>
-                <span class="font-serif text-2xl font-bold tracking-wide">Elite Wheels</span>
+                <span class="font-serif text-xl sm:text-2xl font-bold tracking-wide">Elite Wheels</span>
             </div>
             
             <div class="hidden md:flex items-center space-x-8">
@@ -159,15 +172,15 @@
                 <a href="#contact" class="hover:text-brand-yellow transition-colors font-medium">Contact</a>
             </div>
 
-            <div class="flex items-center space-x-4">
+            <div class="flex items-center space-x-2 sm:space-x-4">
                 <button onclick="openModal('loginModal')" class="hidden md:block px-6 py-2 border-2 border-brand-yellow text-brand-yellow rounded-full hover:bg-brand-yellow hover:text-brand-blue transition-all font-semibold">
                     Login
                 </button>
-                <button onclick="openWhatsApp()" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-full flex items-center space-x-2 transition-all transform hover:scale-105">
+                <button onclick="openWhatsApp()" class="bg-green-500 hover:bg-green-600 text-white px-3 py-2 sm:px-4 rounded-full flex items-center space-x-2 transition-all transform hover:scale-105">
                     <i class="fab fa-whatsapp text-xl"></i>
                     <span class="hidden sm:inline">Chat</span>
                 </button>
-                <button class="md:hidden text-2xl" onclick="toggleMobileMenu()">
+                <button class="md:hidden text-2xl p-2" onclick="toggleMobileMenu()">
                     <i class="fas fa-bars"></i>
                 </button>
             </div>
@@ -186,7 +199,7 @@
     </nav>
 
     <!-- Hero Section -->
-    <section id="home" class="relative h-screen flex items-center justify-center overflow-hidden">
+    <section id="home" class="relative min-h-screen flex items-center justify-center overflow-hidden">
         <!-- Background Image with Overlay -->
         <div class="absolute inset-0 z-0">
             <img src="https://images.unsplash.com/photo-1563720360172-67b8f3dce741?w=1920&q=80" alt="Luxury Rolls Royce" class="w-full h-full object-cover">
@@ -201,51 +214,51 @@
         </div>
 
         <!-- Content -->
-        <div class="relative z-10 text-center text-white px-6 max-w-5xl mx-auto animate-fade-in-up">
+        <div class="relative z-10 text-center text-white px-4 sm:px-6 max-w-5xl mx-auto animate-fade-in-up pt-20">
             <div class="mb-6 inline-block">
-                <span class="px-4 py-2 bg-brand-yellow/20 border border-brand-yellow rounded-full text-brand-yellow text-sm font-semibold tracking-wider uppercase">
+                <span class="px-4 py-2 bg-brand-yellow/20 border border-brand-yellow rounded-full text-brand-yellow text-xs sm:text-sm font-semibold tracking-wider uppercase">
                     Premium Auto Dealership
                 </span>
             </div>
-            <h1 class="font-serif text-5xl md:text-7xl lg:text-8xl font-bold mb-6 leading-tight">
+            <h1 class="font-serif text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold mb-6 leading-tight">
                 Drive Your Dream.<br>
                 <span class="text-gradient">Own Your Future.</span>
             </h1>
-            <p class="text-xl md:text-2xl text-gray-200 mb-10 max-w-2xl mx-auto font-light">
+            <p class="text-lg sm:text-xl md:text-2xl text-gray-200 mb-10 max-w-2xl mx-auto font-light px-4">
                 Experience luxury redefined. Browse our exclusive collection or apply for our community car giveaway program.
             </p>
             
-            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                <a href="#featured" class="group relative px-8 py-4 bg-brand-yellow text-brand-blue font-bold rounded-full overflow-hidden transition-all hover:scale-105 hover:shadow-2xl">
-                    <span class="relative z-10 flex items-center space-x-2">
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center px-4">
+                <a href="#featured" class="group relative px-6 sm:px-8 py-4 bg-brand-yellow text-brand-blue font-bold rounded-full overflow-hidden transition-all hover:scale-105 hover:shadow-2xl w-full sm:w-auto">
+                    <span class="relative z-10 flex items-center justify-center space-x-2">
                         <span>Browse Cars</span>
                         <i class="fas fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
                     </span>
                     <div class="absolute inset-0 bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>
                 </a>
                 
-                <a href="#giveaway" class="px-8 py-4 border-2 border-white text-white font-bold rounded-full hover:bg-white hover:text-brand-blue transition-all hover:scale-105">
+                <a href="#giveaway" class="px-6 sm:px-8 py-4 border-2 border-white text-white font-bold rounded-full hover:bg-white hover:text-brand-blue transition-all hover:scale-105 w-full sm:w-auto text-center">
                     Car Give Away
                 </a>
                 
-                <button onclick="openModal('signupModal')" class="px-8 py-4 bg-white/10 backdrop-blur-md border border-white/30 text-white font-bold rounded-full hover:bg-white/20 transition-all hover:scale-105">
+                <button onclick="openModal('signupModal')" class="px-6 sm:px-8 py-4 bg-white/10 backdrop-blur-md border border-white/30 text-white font-bold rounded-full hover:bg-white/20 transition-all hover:scale-105 w-full sm:w-auto">
                     <i class="fas fa-user-plus mr-2"></i>Sign Up
                 </button>
             </div>
 
             <!-- Stats -->
-            <div class="mt-16 grid grid-cols-3 gap-8 max-w-3xl mx-auto">
+            <div class="mt-12 sm:mt-16 grid grid-cols-3 gap-4 sm:gap-8 max-w-3xl mx-auto px-4">
                 <div class="text-center">
-                    <div class="text-3xl md:text-4xl font-bold text-brand-yellow">500+</div>
-                    <div class="text-sm text-gray-300 mt-1">Cars Sold</div>
+                    <div class="text-2xl sm:text-3xl md:text-4xl font-bold text-brand-yellow">500+</div>
+                    <div class="text-xs sm:text-sm text-gray-300 mt-1">Cars Sold</div>
                 </div>
                 <div class="text-center border-x border-white/20">
-                    <div class="text-3xl md:text-4xl font-bold text-brand-yellow">50+</div>
-                    <div class="text-sm text-gray-300 mt-1">Giveaways</div>
+                    <div class="text-2xl sm:text-3xl md:text-4xl font-bold text-brand-yellow">50+</div>
+                    <div class="text-xs sm:text-sm text-gray-300 mt-1">Giveaways</div>
                 </div>
                 <div class="text-center">
-                    <div class="text-3xl md:text-4xl font-bold text-brand-yellow">100%</div>
-                    <div class="text-sm text-gray-300 mt-1">Satisfaction</div>
+                    <div class="text-2xl sm:text-3xl md:text-4xl font-bold text-brand-yellow">100%</div>
+                    <div class="text-xs sm:text-sm text-gray-300 mt-1">Satisfaction</div>
                 </div>
             </div>
         </div>
@@ -258,16 +271,16 @@
 
     <!-- Featured Cars Section -->
     <section id="featured" class="py-20 bg-white">
-        <div class="container mx-auto px-6">
+        <div class="container mx-auto px-4 sm:px-6">
             <div class="text-center mb-16">
                 <span class="text-brand-blue font-semibold tracking-wider uppercase text-sm">Premium Selection</span>
-                <h2 class="font-serif text-4xl md:text-5xl font-bold text-brand-dark mt-2 mb-4">Featured Luxury Cars</h2>
+                <h2 class="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-brand-dark mt-2 mb-4">Featured Luxury Cars</h2>
                 <div class="w-24 h-1 bg-brand-yellow mx-auto"></div>
-                <p class="text-gray-600 mt-4 max-w-2xl mx-auto">Discover our handpicked collection of premium vehicles, each representing the pinnacle of automotive excellence.</p>
+                <p class="text-gray-600 mt-4 max-w-2xl mx-auto px-4">Discover our handpicked collection of premium vehicles, each representing the pinnacle of automotive excellence.</p>
             </div>
 
             <!-- Filter Buttons -->
-            <div class="flex flex-wrap justify-center gap-4 mb-12">
+            <div class="flex flex-wrap justify-center gap-4 mb-12 px-4">
                 <button onclick="filterCars('all')" class="filter-btn active px-6 py-2 rounded-full border-2 border-brand-blue bg-brand-blue text-white font-semibold transition-all hover:shadow-lg" data-filter="all">All Cars</button>
                 <button onclick="filterCars('sedan')" class="filter-btn px-6 py-2 rounded-full border-2 border-brand-blue text-brand-blue font-semibold transition-all hover:bg-brand-blue hover:text-white" data-filter="sedan">Sedans</button>
                 <button onclick="filterCars('suv')" class="filter-btn px-6 py-2 rounded-full border-2 border-brand-blue text-brand-blue font-semibold transition-all hover:bg-brand-blue hover:text-white" data-filter="suv">SUVs</button>
@@ -275,7 +288,7 @@
             </div>
 
             <!-- Cars Grid -->
-            <div id="carsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div id="carsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-4 sm:px-0">
                 <!-- Car cards will be populated by JavaScript -->
             </div>
 
@@ -293,17 +306,17 @@
         <div class="absolute top-0 right-0 w-96 h-96 bg-brand-yellow/10 rounded-full blur-3xl"></div>
         <div class="absolute bottom-0 left-0 w-96 h-96 bg-white/5 rounded-full blur-3xl"></div>
 
-        <div class="container mx-auto px-6 relative z-10">
+        <div class="container mx-auto px-4 sm:px-6 relative z-10">
             <div class="text-center mb-16">
                 <span class="text-brand-yellow font-semibold tracking-wider uppercase text-sm">Community Support</span>
-                <h2 class="font-serif text-4xl md:text-5xl font-bold mt-2 mb-4">Car Give Away Program</h2>
+                <h2 class="font-serif text-3xl sm:text-4xl md:text-5xl font-bold mt-2 mb-4">Car Give Away Program</h2>
                 <div class="w-24 h-1 bg-brand-yellow mx-auto"></div>
-                <p class="text-gray-300 mt-4 max-w-2xl mx-auto">We believe in giving back. Apply for our used car giveaway program and take the first step towards mobility and independence.</p>
+                <p class="text-gray-300 mt-4 max-w-2xl mx-auto px-4">We believe in giving back. Apply for our used car giveaway program and take the first step towards mobility and independence.</p>
             </div>
 
             <div class="grid lg:grid-cols-2 gap-12 items-center">
                 <!-- Giveaway Cars -->
-                <div class="space-y-6">
+                <div class="space-y-6 px-4 sm:px-0">
                     <h3 class="text-2xl font-bold mb-6 flex items-center">
                         <i class="fas fa-gift text-brand-yellow mr-3"></i>
                         Available Give Away Cars
@@ -315,15 +328,13 @@
                 </div>
 
                 <!-- Application Form -->
-                <div class="bg-white/10 backdrop-blur-md rounded-2xl p-8 border border-white/20">
+                <div class="bg-white/10 backdrop-blur-md rounded-2xl p-6 sm:p-8 border border-white/20 mx-4 sm:mx-0">
                     <h3 class="text-2xl font-bold mb-6 flex items-center">
                         <i class="fas fa-file-alt text-brand-yellow mr-3"></i>
                         Apply for a Car
                     </h3>
                     
-                    <!-- IMPORTANT: Replace YOUR_FORM_ID with your actual Formspree form ID -->
-                    <!-- Sign up at https://formspree.io to get your form endpoint -->
-                    <form id="giveawayForm" action="https://formspree.io/f/xeelynbp" method="POST" class="space-y-4">
+                    <form id="giveawayForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" class="space-y-4">
                         
                         <!-- Hidden field to identify this is a giveaway application -->
                         <input type="hidden" name="_subject" value="New Car Giveaway Application - Elite Wheels">
@@ -382,20 +393,6 @@
                         
                         <div id="formStatus" class="hidden mt-4 p-4 rounded-lg text-center"></div>
                     </form>
-                    
-                    <div class="mt-4 p-4 bg-blue-500/20 border border-blue-500/30 rounded-lg">
-                        <p class="text-sm text-blue-200">
-                            <i class="fas fa-info-circle mr-2"></i>
-                            <strong>Setup Required:</strong> To receive applications via email at <strong>seniorsmart55@gmail.com</strong>, please:
-                        </p>
-                        <ol class="text-sm text-blue-200 mt-2 ml-4 list-decimal">
-                            <li>Go to <a href="https://formspree.io" target="_blank" class="underline hover:text-white">formspree.io</a></li>
-                            <li>Create a free account</li>
-                            <li>Create a new form and add <strong>seniorsmart55@gmail.com</strong> as the recipient</li>
-                            <li>Copy your form endpoint URL (looks like: <code>https://formspree.io/f/xxxxxxxx</code>)</li>
-                            <li>Replace <code>YOUR_FORM_ID</code> in the code with your actual form ID</li>
-                        </ol>
-                    </div>
                 </div>
             </div>
         </div>
@@ -403,9 +400,9 @@
 
     <!-- About Section -->
     <section id="about" class="py-20 bg-gray-50">
-        <div class="container mx-auto px-6">
+        <div class="container mx-auto px-4 sm:px-6">
             <div class="grid lg:grid-cols-2 gap-12 items-center">
-                <div class="relative">
+                <div class="relative px-4 sm:px-0">
                     <div class="absolute -top-4 -left-4 w-24 h-24 bg-brand-yellow/20 rounded-full"></div>
                     <div class="absolute -bottom-4 -right-4 w-32 h-32 bg-brand-blue/10 rounded-full"></div>
                     <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=800&q=80" alt="Showroom" class="relative z-10 rounded-2xl shadow-2xl w-full">
@@ -417,9 +414,9 @@
                     </div>
                 </div>
                 
-                <div>
+                <div class="px-4 sm:px-0">
                     <span class="text-brand-blue font-semibold tracking-wider uppercase text-sm">About Us</span>
-                    <h2 class="font-serif text-4xl md:text-5xl font-bold text-brand-dark mt-2 mb-6">Your Trusted Partner in Automotive Excellence</h2>
+                    <h2 class="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-brand-dark mt-2 mb-6">Your Trusted Partner in Automotive Excellence</h2>
                     <p class="text-gray-600 mb-6 leading-relaxed">
                         Elite Wheels has been at the forefront of luxury automotive sales for over a decade. We pride ourselves on offering not just cars, but experiences that last a lifetime.
                     </p>
@@ -477,13 +474,13 @@
 
     <!-- FAQ Section -->
     <section class="py-20 bg-white">
-        <div class="container mx-auto px-6 max-w-4xl">
+        <div class="container mx-auto px-4 sm:px-6 max-w-4xl">
             <div class="text-center mb-12">
                 <span class="text-brand-blue font-semibold tracking-wider uppercase text-sm">FAQ</span>
-                <h2 class="font-serif text-4xl font-bold text-brand-dark mt-2">Frequently Asked Questions</h2>
+                <h2 class="font-serif text-3xl sm:text-4xl font-bold text-brand-dark mt-2">Frequently Asked Questions</h2>
             </div>
 
-            <div class="space-y-4" id="faqContainer">
+            <div class="space-y-4 px-4 sm:px-0" id="faqContainer">
                 <!-- FAQs populated by JS -->
             </div>
         </div>
@@ -495,10 +492,10 @@
             <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=1920&q=80" class="w-full h-full object-cover">
         </div>
         
-        <div class="container mx-auto px-6 relative z-10">
+        <div class="container mx-auto px-4 sm:px-6 relative z-10">
             <div class="grid lg:grid-cols-3 gap-12">
-                <div class="lg:col-span-1">
-                    <h2 class="font-serif text-4xl font-bold mb-6">Get in Touch</h2>
+                <div class="lg:col-span-1 px-4 sm:px-0">
+                    <h2 class="font-serif text-3xl sm:text-4xl font-bold mb-6">Get in Touch</h2>
                     <p class="text-gray-300 mb-8">Have questions? We're here to help. Reach out to us through any of these channels.</p>
                     
                     <div class="space-y-6">
@@ -528,7 +525,7 @@
                             </div>
                             <div>
                                 <h4 class="font-bold mb-1">Email Us</h4>
-                                <p class="text-gray-400">info@elitewheels.com</p>
+                                <p class="text-gray-400">elitewheelsgiveaway@gmail.com</p>
                             </div>
                         </div>
 
@@ -558,7 +555,7 @@
                     </div>
                 </div>
 
-                <div class="lg:col-span-2 bg-white/5 backdrop-blur-md rounded-2xl p-8 border border-white/10">
+                <div class="lg:col-span-2 bg-white/5 backdrop-blur-md rounded-2xl p-6 sm:p-8 border border-white/10 mx-4 sm:mx-0">
                     <form class="space-y-6" onsubmit="handleContactSubmit(event)">
                         <div class="grid md:grid-cols-2 gap-6">
                             <div>
@@ -590,14 +587,6 @@
                         <button type="submit" class="w-full py-4 bg-brand-yellow text-brand-blue font-bold rounded-lg hover:bg-white transition-all transform hover:scale-[1.02]">
                             Send Message
                         </button>
-
-                        <div class="text-center pt-4 border-t border-white/10">
-                            <p class="text-gray-400 text-sm mb-3">Prefer instant chat?</p>
-                            <button type="button" onclick="openWhatsApp()" class="inline-flex items-center space-x-2 bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-full transition-all">
-                                <i class="fab fa-whatsapp text-xl"></i>
-                                <span>Chat on WhatsApp</span>
-                            </button>
-                        </div>
                     </form>
                 </div>
             </div>
@@ -606,9 +595,9 @@
 
     <!-- Footer -->
     <footer class="bg-black text-white py-12 border-t border-white/10">
-        <div class="container mx-auto px-6">
-            <div class="grid md:grid-cols-4 gap-8 mb-8">
-                <div>
+        <div class="container mx-auto px-4 sm:px-6">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-8">
+                <div class="col-span-2 md:col-span-1">
                     <div class="flex items-center space-x-2 mb-4">
                         <i class="fas fa-crown text-brand-yellow text-2xl"></i>
                         <span class="font-serif text-2xl font-bold">Elite Wheels</span>
@@ -647,7 +636,7 @@
                         </li>
                         <li class="flex items-center space-x-2">
                             <i class="fas fa-envelope text-brand-yellow"></i>
-                            <span>info@elitewheels.com</span>
+                            <span>elitewheelsgiveaway@gmail.com</span>
                         </li>
                     </ul>
                     <button onclick="openWhatsApp()" class="mt-4 w-full py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg text-sm font-semibold transition-all">
@@ -669,13 +658,13 @@
     </footer>
 
     <!-- WhatsApp Floating Button -->
-    <button onclick="openWhatsApp()" class="whatsapp-btn bg-green-500 hover:bg-green-600 text-white w-16 h-16 rounded-full shadow-2xl flex items-center justify-center text-3xl transition-transform hover:scale-110">
+    <button onclick="openWhatsApp()" class="whatsapp-btn bg-green-500 hover:bg-green-600 text-white w-14 h-14 sm:w-16 sm:h-16 rounded-full shadow-2xl flex items-center justify-center text-2xl sm:text-3xl transition-transform hover:scale-110">
         <i class="fab fa-whatsapp"></i>
     </button>
 
     <!-- Login Modal -->
     <div id="loginModal" class="modal fixed inset-0 z-50 items-center justify-center bg-black/80 backdrop-blur-sm p-4">
-        <div class="bg-white rounded-2xl max-w-md w-full p-8 relative animate-fade-in-up">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 sm:p-8 relative animate-fade-in-up max-h-[90vh] overflow-y-auto">
             <button onclick="closeModal('loginModal')" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-xl">
                 <i class="fas fa-times"></i>
             </button>
@@ -716,7 +705,7 @@
 
     <!-- Sign Up Modal -->
     <div id="signupModal" class="modal fixed inset-0 z-50 items-center justify-center bg-black/80 backdrop-blur-sm p-4">
-        <div class="bg-white rounded-2xl max-w-md w-full p-8 relative animate-fade-in-up max-h-[90vh] overflow-y-auto">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 sm:p-8 relative animate-fade-in-up max-h-[90vh] overflow-y-auto">
             <button onclick="closeModal('signupModal')" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-xl">
                 <i class="fas fa-times"></i>
             </button>
@@ -784,7 +773,7 @@
     </div>
 
     <!-- Toast Notification -->
-    <div id="toast" class="fixed bottom-24 left-1/2 transform -translate-x-1/2 bg-brand-dark text-white px-6 py-3 rounded-full shadow-2xl flex items-center space-x-3 transition-all duration-300 opacity-0 translate-y-10 z-50">
+    <div id="toast" class="fixed bottom-24 left-1/2 transform -translate-x-1/2 bg-brand-dark text-white px-6 py-3 rounded-full shadow-2xl flex items-center space-x-3 transition-all duration-300 opacity-0 translate-y-10 z-50 max-w-[90%] sm:max-w-none">
         <i class="fas fa-check-circle text-brand-yellow"></i>
         <span id="toastMessage">Operation successful</span>
     </div>
@@ -974,8 +963,8 @@
             container.innerHTML = faqs.map((faq, index) => `
                 <div class="border border-gray-200 rounded-lg overflow-hidden">
                     <button onclick="toggleFAQ(${index})" class="w-full px-6 py-4 text-left flex justify-between items-center bg-white hover:bg-gray-50 transition-colors">
-                        <span class="font-semibold text-brand-dark">${faq.question}</span>
-                        <i id="faq-icon-${index}" class="fas fa-chevron-down text-brand-blue transition-transform"></i>
+                        <span class="font-semibold text-brand-dark pr-4">${faq.question}</span>
+                        <i id="faq-icon-${index}" class="fas fa-chevron-down text-brand-blue transition-transform flex-shrink-0"></i>
                     </button>
                     <div id="faq-answer-${index}" class="hidden px-6 py-4 bg-gray-50 text-gray-600 border-t border-gray-200">
                         ${faq.answer}
@@ -1111,14 +1100,14 @@
                     <div class="h-64 md:h-full">
                         <img src="${car.image}" class="w-full h-full object-cover rounded-t-2xl md:rounded-l-2xl md:rounded-tr-none">
                     </div>
-                    <div class="p-8">
+                    <div class="p-6 sm:p-8">
                         <div class="flex justify-between items-start mb-4">
                             <div>
-                                <h2 class="font-serif text-3xl font-bold text-brand-dark mb-1">${car.name}</h2>
+                                <h2 class="font-serif text-2xl sm:text-3xl font-bold text-brand-dark mb-1">${car.name}</h2>
                                 <p class="text-gray-500">${car.year} • ${car.mileage}</p>
                             </div>
                             <div class="text-right">
-                                <div class="text-3xl font-bold text-brand-blue">${car.price}</div>
+                                <div class="text-2xl sm:text-3xl font-bold text-brand-blue">${car.price}</div>
                                 <div class="text-sm text-gray-500">or financing</div>
                             </div>
                         </div>
