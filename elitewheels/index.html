@@ -1,0 +1,1237 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elite Wheels & Car Give Away | Drive Your Dream</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            blue: '#1e3a8a',
+                            light: '#3b82f6',
+                            yellow: '#fbbf24',
+                            gold: '#f59e0b',
+                            dark: '#0f172a'
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['Playfair Display', 'serif'],
+                        sans: ['Inter', 'sans-serif']
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'shimmer': 'shimmer 2s linear infinite',
+                        'fade-in-up': 'fadeInUp 0.8s ease-out',
+                        'slide-in': 'slideIn 0.6s ease-out',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        shimmer: {
+                            '0%': { backgroundPosition: '-1000px 0' },
+                            '100%': { backgroundPosition: '1000px 0' },
+                        },
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(30px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        slideIn: {
+                            '0%': { transform: 'translateX(-100%)' },
+                            '100%': { transform: 'translateX(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .text-gradient {
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #d97706 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .gold-border {
+            border: 2px solid transparent;
+            background: linear-gradient(white, white) padding-box,
+                        linear-gradient(135deg, #fbbf24, #f59e0b) border-box;
+        }
+        .hover-lift {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .hover-lift:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+        .parallax-bg {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        .nav-scrolled {
+            background: rgba(30, 58, 138, 0.95);
+            backdrop-filter: blur(10px);
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+        }
+        .nav-transparent {
+            background: transparent;
+            padding-top: 1.5rem;
+            padding-bottom: 1.5rem;
+        }
+        .whatsapp-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 50;
+            animation: pulse 2s infinite;
+        }
+        .car-card:hover .car-overlay {
+            opacity: 1;
+        }
+        .car-overlay {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .loader {
+            border-top-color: #fbbf24;
+            -webkit-animation: spinner 1.5s linear infinite;
+            animation: spinner 1.5s linear infinite;
+        }
+        @keyframes spinner {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .modal {
+            display: none;
+        }
+        .modal.active {
+            display: flex;
+        }
+        .input-focus:focus {
+            box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.3);
+            border-color: #fbbf24;
+        }
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="font-sans text-gray-800 bg-gray-50 overflow-x-hidden">
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 nav-transparent text-white">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <i class="fas fa-crown text-brand-yellow text-2xl"></i>
+                <span class="font-serif text-2xl font-bold tracking-wide">Elite Wheels</span>
+            </div>
+            
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#home" class="hover:text-brand-yellow transition-colors font-medium">Home</a>
+                <a href="#featured" class="hover:text-brand-yellow transition-colors font-medium">Browse Cars</a>
+                <a href="#giveaway" class="hover:text-brand-yellow transition-colors font-medium">Car Give Away</a>
+                <a href="#about" class="hover:text-brand-yellow transition-colors font-medium">About</a>
+                <a href="#contact" class="hover:text-brand-yellow transition-colors font-medium">Contact</a>
+            </div>
+
+            <div class="flex items-center space-x-4">
+                <button onclick="openModal('loginModal')" class="hidden md:block px-6 py-2 border-2 border-brand-yellow text-brand-yellow rounded-full hover:bg-brand-yellow hover:text-brand-blue transition-all font-semibold">
+                    Login
+                </button>
+                <button onclick="openWhatsApp()" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-full flex items-center space-x-2 transition-all transform hover:scale-105">
+                    <i class="fab fa-whatsapp text-xl"></i>
+                    <span class="hidden sm:inline">Chat</span>
+                </button>
+                <button class="md:hidden text-2xl" onclick="toggleMobileMenu()">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="hidden md:hidden bg-brand-blue absolute w-full top-full left-0 shadow-xl">
+            <div class="flex flex-col p-6 space-y-4">
+                <a href="#home" class="text-white hover:text-brand-yellow">Home</a>
+                <a href="#featured" class="text-white hover:text-brand-yellow">Browse Cars</a>
+                <a href="#giveaway" class="text-white hover:text-brand-yellow">Car Give Away</a>
+                <a href="#about" class="text-white hover:text-brand-yellow">About</a>
+                <button onclick="openModal('loginModal')" class="text-left text-brand-yellow font-semibold">Login / Sign Up</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative h-screen flex items-center justify-center overflow-hidden">
+        <!-- Background Image with Overlay -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1563720360172-67b8f3dce741?w=1920&q=80" alt="Luxury Rolls Royce" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-b from-brand-blue/80 via-brand-blue/50 to-black/70"></div>
+        </div>
+
+        <!-- Animated Particles -->
+        <div class="absolute inset-0 z-0 opacity-30">
+            <div class="absolute top-20 left-10 w-2 h-2 bg-brand-yellow rounded-full animate-float"></div>
+            <div class="absolute top-40 right-20 w-3 h-3 bg-white rounded-full animate-float" style="animation-delay: 1s;"></div>
+            <div class="absolute bottom-40 left-1/4 w-2 h-2 bg-brand-yellow rounded-full animate-float" style="animation-delay: 2s;"></div>
+        </div>
+
+        <!-- Content -->
+        <div class="relative z-10 text-center text-white px-6 max-w-5xl mx-auto animate-fade-in-up">
+            <div class="mb-6 inline-block">
+                <span class="px-4 py-2 bg-brand-yellow/20 border border-brand-yellow rounded-full text-brand-yellow text-sm font-semibold tracking-wider uppercase">
+                    Premium Auto Dealership
+                </span>
+            </div>
+            <h1 class="font-serif text-5xl md:text-7xl lg:text-8xl font-bold mb-6 leading-tight">
+                Drive Your Dream.<br>
+                <span class="text-gradient">Own Your Future.</span>
+            </h1>
+            <p class="text-xl md:text-2xl text-gray-200 mb-10 max-w-2xl mx-auto font-light">
+                Experience luxury redefined. Browse our exclusive collection or apply for our community car giveaway program.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <a href="#featured" class="group relative px-8 py-4 bg-brand-yellow text-brand-blue font-bold rounded-full overflow-hidden transition-all hover:scale-105 hover:shadow-2xl">
+                    <span class="relative z-10 flex items-center space-x-2">
+                        <span>Browse Cars</span>
+                        <i class="fas fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                    </span>
+                    <div class="absolute inset-0 bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>
+                </a>
+                
+                <a href="#giveaway" class="px-8 py-4 border-2 border-white text-white font-bold rounded-full hover:bg-white hover:text-brand-blue transition-all hover:scale-105">
+                    Car Give Away
+                </a>
+                
+                <button onclick="openModal('signupModal')" class="px-8 py-4 bg-white/10 backdrop-blur-md border border-white/30 text-white font-bold rounded-full hover:bg-white/20 transition-all hover:scale-105">
+                    <i class="fas fa-user-plus mr-2"></i>Sign Up
+                </button>
+            </div>
+
+            <!-- Stats -->
+            <div class="mt-16 grid grid-cols-3 gap-8 max-w-3xl mx-auto">
+                <div class="text-center">
+                    <div class="text-3xl md:text-4xl font-bold text-brand-yellow">500+</div>
+                    <div class="text-sm text-gray-300 mt-1">Cars Sold</div>
+                </div>
+                <div class="text-center border-x border-white/20">
+                    <div class="text-3xl md:text-4xl font-bold text-brand-yellow">50+</div>
+                    <div class="text-sm text-gray-300 mt-1">Giveaways</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl md:text-4xl font-bold text-brand-yellow">100%</div>
+                    <div class="text-sm text-gray-300 mt-1">Satisfaction</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <i class="fas fa-chevron-down text-white text-2xl opacity-70"></i>
+        </div>
+    </section>
+
+    <!-- Featured Cars Section -->
+    <section id="featured" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <span class="text-brand-blue font-semibold tracking-wider uppercase text-sm">Premium Selection</span>
+                <h2 class="font-serif text-4xl md:text-5xl font-bold text-brand-dark mt-2 mb-4">Featured Luxury Cars</h2>
+                <div class="w-24 h-1 bg-brand-yellow mx-auto"></div>
+                <p class="text-gray-600 mt-4 max-w-2xl mx-auto">Discover our handpicked collection of premium vehicles, each representing the pinnacle of automotive excellence.</p>
+            </div>
+
+            <!-- Filter Buttons -->
+            <div class="flex flex-wrap justify-center gap-4 mb-12">
+                <button onclick="filterCars('all')" class="filter-btn active px-6 py-2 rounded-full border-2 border-brand-blue bg-brand-blue text-white font-semibold transition-all hover:shadow-lg" data-filter="all">All Cars</button>
+                <button onclick="filterCars('sedan')" class="filter-btn px-6 py-2 rounded-full border-2 border-brand-blue text-brand-blue font-semibold transition-all hover:bg-brand-blue hover:text-white" data-filter="sedan">Sedans</button>
+                <button onclick="filterCars('suv')" class="filter-btn px-6 py-2 rounded-full border-2 border-brand-blue text-brand-blue font-semibold transition-all hover:bg-brand-blue hover:text-white" data-filter="suv">SUVs</button>
+                <button onclick="filterCars('sports')" class="filter-btn px-6 py-2 rounded-full border-2 border-brand-blue text-brand-blue font-semibold transition-all hover:bg-brand-blue hover:text-white" data-filter="sports">Sports</button>
+            </div>
+
+            <!-- Cars Grid -->
+            <div id="carsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Car cards will be populated by JavaScript -->
+            </div>
+
+            <div class="text-center mt-12">
+                <button class="px-8 py-3 border-2 border-brand-blue text-brand-blue font-bold rounded-full hover:bg-brand-blue hover:text-white transition-all">
+                    View All Inventory
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Give Away Section -->
+    <section id="giveaway" class="py-20 bg-gradient-to-br from-brand-blue to-brand-dark text-white relative overflow-hidden">
+        <!-- Decorative Elements -->
+        <div class="absolute top-0 right-0 w-96 h-96 bg-brand-yellow/10 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-0 left-0 w-96 h-96 bg-white/5 rounded-full blur-3xl"></div>
+
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="text-center mb-16">
+                <span class="text-brand-yellow font-semibold tracking-wider uppercase text-sm">Community Support</span>
+                <h2 class="font-serif text-4xl md:text-5xl font-bold mt-2 mb-4">Car Give Away Program</h2>
+                <div class="w-24 h-1 bg-brand-yellow mx-auto"></div>
+                <p class="text-gray-300 mt-4 max-w-2xl mx-auto">We believe in giving back. Apply for our used car giveaway program and take the first step towards mobility and independence.</p>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <!-- Giveaway Cars -->
+                <div class="space-y-6">
+                    <h3 class="text-2xl font-bold mb-6 flex items-center">
+                        <i class="fas fa-gift text-brand-yellow mr-3"></i>
+                        Available Give Away Cars
+                    </h3>
+                    
+                    <div id="giveawayGrid" class="space-y-4">
+                        <!-- Giveaway cars populated by JS -->
+                    </div>
+                </div>
+
+                <!-- Application Form -->
+                <div class="bg-white/10 backdrop-blur-md rounded-2xl p-8 border border-white/20">
+                    <h3 class="text-2xl font-bold mb-6 flex items-center">
+                        <i class="fas fa-file-alt text-brand-yellow mr-3"></i>
+                        Apply for a Car
+                    </h3>
+                    
+                    <!-- IMPORTANT: Replace YOUR_FORM_ID with your actual Formspree form ID -->
+                    <!-- Sign up at https://formspree.io to get your form endpoint -->
+                    <form id="giveawayForm" action="https://formspree.io/f/xeelynbp" method="POST" class="space-y-4">
+                        
+                        <!-- Hidden field to identify this is a giveaway application -->
+                        <input type="hidden" name="_subject" value="New Car Giveaway Application - Elite Wheels">
+                        <input type="hidden" name="_template" value="table">
+                        
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium mb-2">Full Name *</label>
+                                <input type="text" name="full_name" required class="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/30 text-white placeholder-gray-400 input-focus focus:outline-none transition-all" placeholder="John Doe">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium mb-2">Email Address *</label>
+                                <input type="email" name="email" required class="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/30 text-white placeholder-gray-400 input-focus focus:outline-none transition-all" placeholder="john@example.com">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Home Address *</label>
+                            <input type="text" name="address" required class="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/30 text-white placeholder-gray-400 input-focus focus:outline-none transition-all" placeholder="123 Main Street, City, State">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Phone Number *</label>
+                            <input type="tel" name="phone" required class="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/30 text-white placeholder-gray-400 input-focus focus:outline-none transition-all" placeholder="+234 704 778 3396">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Select Car Preference *</label>
+                            <select name="car_preference" required class="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/30 text-white focus:outline-none input-focus">
+                                <option value="" class="text-gray-800">-- Select a car --</option>
+                                <option value="Any Available Car" class="text-gray-800">Any Available Car</option>
+                                <option value="2018 Toyota Camry" class="text-gray-800">2018 Toyota Camry</option>
+                                <option value="2017 Honda Accord" class="text-gray-800">2017 Honda Accord</option>
+                                <option value="2016 Nissan Altima" class="text-gray-800">2016 Nissan Altima</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Your Situation *</label>
+                            <textarea name="situation" required rows="4" class="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/30 text-white placeholder-gray-400 input-focus focus:outline-none transition-all resize-none" placeholder="Please explain your situation and why you believe you should be considered for this car giveaway..."></textarea>
+                            <p class="text-xs text-gray-400 mt-1">Be honest and detailed. This helps us make fair decisions.</p>
+                        </div>
+
+                        <div class="flex items-start space-x-2">
+                            <input type="checkbox" name="terms_agreed" value="Yes" required class="mt-1 w-4 h-4 rounded border-white/30 bg-white/10 text-brand-yellow focus:ring-brand-yellow">
+                            <label class="text-sm text-gray-300">I confirm that the information provided is accurate and I agree to the terms and conditions.</label>
+                        </div>
+                        
+                        <!-- Redirect after submission -->
+                        <input type="hidden" name="_next" value="https://yourdomain.com/thank-you.html">
+                        
+                        <button type="submit" id="submitBtn" class="w-full py-4 bg-brand-yellow text-brand-blue font-bold rounded-lg hover:bg-white transition-all transform hover:scale-[1.02] flex items-center justify-center space-x-2">
+                            <span id="btnText">Submit Application</span>
+                            <i id="btnIcon" class="fas fa-paper-plane"></i>
+                        </button>
+                        
+                        <div id="formStatus" class="hidden mt-4 p-4 rounded-lg text-center"></div>
+                    </form>
+                    
+                    <div class="mt-4 p-4 bg-blue-500/20 border border-blue-500/30 rounded-lg">
+                        <p class="text-sm text-blue-200">
+                            <i class="fas fa-info-circle mr-2"></i>
+                            <strong>Setup Required:</strong> To receive applications via email at <strong>seniorsmart55@gmail.com</strong>, please:
+                        </p>
+                        <ol class="text-sm text-blue-200 mt-2 ml-4 list-decimal">
+                            <li>Go to <a href="https://formspree.io" target="_blank" class="underline hover:text-white">formspree.io</a></li>
+                            <li>Create a free account</li>
+                            <li>Create a new form and add <strong>seniorsmart55@gmail.com</strong> as the recipient</li>
+                            <li>Copy your form endpoint URL (looks like: <code>https://formspree.io/f/xxxxxxxx</code>)</li>
+                            <li>Replace <code>YOUR_FORM_ID</code> in the code with your actual form ID</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="relative">
+                    <div class="absolute -top-4 -left-4 w-24 h-24 bg-brand-yellow/20 rounded-full"></div>
+                    <div class="absolute -bottom-4 -right-4 w-32 h-32 bg-brand-blue/10 rounded-full"></div>
+                    <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=800&q=80" alt="Showroom" class="relative z-10 rounded-2xl shadow-2xl w-full">
+                    
+                    <!-- Experience Badge -->
+                    <div class="absolute -bottom-6 -right-6 bg-brand-blue text-white p-6 rounded-2xl shadow-xl z-20">
+                        <div class="text-3xl font-bold text-brand-yellow">10+</div>
+                        <div class="text-sm">Years Experience</div>
+                    </div>
+                </div>
+                
+                <div>
+                    <span class="text-brand-blue font-semibold tracking-wider uppercase text-sm">About Us</span>
+                    <h2 class="font-serif text-4xl md:text-5xl font-bold text-brand-dark mt-2 mb-6">Your Trusted Partner in Automotive Excellence</h2>
+                    <p class="text-gray-600 mb-6 leading-relaxed">
+                        Elite Wheels has been at the forefront of luxury automotive sales for over a decade. We pride ourselves on offering not just cars, but experiences that last a lifetime.
+                    </p>
+                    <p class="text-gray-600 mb-8 leading-relaxed">
+                        Our Car Give Away program reflects our commitment to community support, helping individuals and families gain the mobility they need to improve their lives.
+                    </p>
+                    
+                    <div class="grid grid-cols-2 gap-6 mb-8">
+                        <div class="flex items-start space-x-3">
+                            <div class="w-12 h-12 bg-brand-yellow/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-check-circle text-brand-yellow text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-brand-dark">Verified Quality</h4>
+                                <p class="text-sm text-gray-600">Every car inspected</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <div class="w-12 h-12 bg-brand-yellow/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-shield-alt text-brand-yellow text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-brand-dark">Secure Process</h4>
+                                <p class="text-sm text-gray-600">Safe transactions</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <div class="w-12 h-12 bg-brand-yellow/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-headset text-brand-yellow text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-brand-dark">24/7 Support</h4>
+                                <p class="text-sm text-gray-600">Always here to help</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <div class="w-12 h-12 bg-brand-yellow/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-heart text-brand-yellow text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-brand-dark">Community First</h4>
+                                <p class="text-sm text-gray-600">Giving back always</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button onclick="openWhatsApp()" class="px-8 py-3 bg-brand-blue text-white font-bold rounded-full hover:bg-brand-light transition-all inline-flex items-center space-x-2">
+                        <span>Contact Us</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-6 max-w-4xl">
+            <div class="text-center mb-12">
+                <span class="text-brand-blue font-semibold tracking-wider uppercase text-sm">FAQ</span>
+                <h2 class="font-serif text-4xl font-bold text-brand-dark mt-2">Frequently Asked Questions</h2>
+            </div>
+
+            <div class="space-y-4" id="faqContainer">
+                <!-- FAQs populated by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-brand-dark text-white relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+            <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=1920&q=80" class="w-full h-full object-cover">
+        </div>
+        
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="grid lg:grid-cols-3 gap-12">
+                <div class="lg:col-span-1">
+                    <h2 class="font-serif text-4xl font-bold mb-6">Get in Touch</h2>
+                    <p class="text-gray-300 mb-8">Have questions? We're here to help. Reach out to us through any of these channels.</p>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 bg-brand-yellow/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-map-marker-alt text-brand-yellow text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold mb-1">Visit Us</h4>
+                                <p class="text-gray-400">123 Luxury Lane, Beverly Hills, CA 90210</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 bg-brand-yellow/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-phone text-brand-yellow text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold mb-1">Call Us</h4>
+                                <p class="text-gray-400">+1 (555) 123-4567</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 bg-brand-yellow/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-envelope text-brand-yellow text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold mb-1">Email Us</h4>
+                                <p class="text-gray-400">info@elitewheels.com</p>
+                            </div>
+                        </div>
+
+                        <!-- WhatsApp Direct Contact -->
+                        <div class="flex items-start space-x-4 bg-green-500/20 p-4 rounded-xl border border-green-500/30 cursor-pointer hover:bg-green-500/30 transition-all" onclick="openWhatsApp()">
+                            <div class="w-12 h-12 bg-green-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                                <i class="fab fa-whatsapp text-white text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold mb-1 text-green-400">WhatsApp Direct</h4>
+                                <p class="text-gray-300 text-sm">Click to chat instantly</p>
+                                <p class="text-green-400 font-mono text-sm">07047783396</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 flex space-x-4">
+                        <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-brand-yellow hover:text-brand-blue transition-all">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-brand-yellow hover:text-brand-blue transition-all">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-brand-yellow hover:text-brand-blue transition-all">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-2 bg-white/5 backdrop-blur-md rounded-2xl p-8 border border-white/10">
+                    <form class="space-y-6" onsubmit="handleContactSubmit(event)">
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-medium mb-2">Your Name</label>
+                                <input type="text" class="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-brand-yellow transition-all" placeholder="John Doe">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium mb-2">Email Address</label>
+                                <input type="email" class="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-brand-yellow transition-all" placeholder="john@example.com">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Subject</label>
+                            <select class="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white focus:outline-none focus:border-brand-yellow transition-all">
+                                <option value="" class="text-gray-800">Select a subject</option>
+                                <option value="sales" class="text-gray-800">Car Sales Inquiry</option>
+                                <option value="giveaway" class="text-gray-800">Giveaway Question</option>
+                                <option value="support" class="text-gray-800">Customer Support</option>
+                                <option value="other" class="text-gray-800">Other</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Message</label>
+                            <textarea rows="4" class="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-brand-yellow transition-all resize-none" placeholder="How can we help you?"></textarea>
+                        </div>
+                        
+                        <button type="submit" class="w-full py-4 bg-brand-yellow text-brand-blue font-bold rounded-lg hover:bg-white transition-all transform hover:scale-[1.02]">
+                            Send Message
+                        </button>
+
+                        <div class="text-center pt-4 border-t border-white/10">
+                            <p class="text-gray-400 text-sm mb-3">Prefer instant chat?</p>
+                            <button type="button" onclick="openWhatsApp()" class="inline-flex items-center space-x-2 bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-full transition-all">
+                                <i class="fab fa-whatsapp text-xl"></i>
+                                <span>Chat on WhatsApp</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black text-white py-12 border-t border-white/10">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <i class="fas fa-crown text-brand-yellow text-2xl"></i>
+                        <span class="font-serif text-2xl font-bold">Elite Wheels</span>
+                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Premium automotive dealership dedicated to excellence and community support through our car giveaway program.
+                    </p>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-lg mb-4 text-brand-yellow">Quick Links</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#home" class="hover:text-white transition-colors">Home</a></li>
+                        <li><a href="#featured" class="hover:text-white transition-colors">Browse Cars</a></li>
+                        <li><a href="#giveaway" class="hover:text-white transition-colors">Car Give Away</a></li>
+                        <li><a href="#about" class="hover:text-white transition-colors">About Us</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-lg mb-4 text-brand-yellow">Support</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white transition-colors">FAQ</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Terms & Conditions</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Privacy Policy</a></li>
+                        <li><a href="#" onclick="openModal('loginModal')" class="hover:text-white transition-colors">Admin Login</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-lg mb-4 text-brand-yellow">Contact</h4>
+                    <ul class="space-y-2 text-gray-400 text-sm">
+                        <li class="flex items-center space-x-2">
+                            <i class="fab fa-whatsapp text-green-500"></i>
+                            <span>07047783396</span>
+                        </li>
+                        <li class="flex items-center space-x-2">
+                            <i class="fas fa-envelope text-brand-yellow"></i>
+                            <span>info@elitewheels.com</span>
+                        </li>
+                    </ul>
+                    <button onclick="openWhatsApp()" class="mt-4 w-full py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg text-sm font-semibold transition-all">
+                        <i class="fab fa-whatsapp mr-2"></i>Chat Now
+                    </button>
+                </div>
+            </div>
+            
+            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-500 text-sm">&copy; 2024 Elite Wheels & Car Give Away. All rights reserved.</p>
+                <div class="flex space-x-6 mt-4 md:mt-0">
+                    <a href="#" class="text-gray-400 hover:text-brand-yellow transition-colors"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-brand-yellow transition-colors"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-brand-yellow transition-colors"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-brand-yellow transition-colors"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Floating Button -->
+    <button onclick="openWhatsApp()" class="whatsapp-btn bg-green-500 hover:bg-green-600 text-white w-16 h-16 rounded-full shadow-2xl flex items-center justify-center text-3xl transition-transform hover:scale-110">
+        <i class="fab fa-whatsapp"></i>
+    </button>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal fixed inset-0 z-50 items-center justify-center bg-black/80 backdrop-blur-sm p-4">
+        <div class="bg-white rounded-2xl max-w-md w-full p-8 relative animate-fade-in-up">
+            <button onclick="closeModal('loginModal')" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-xl">
+                <i class="fas fa-times"></i>
+            </button>
+            
+            <div class="text-center mb-6">
+                <i class="fas fa-crown text-brand-yellow text-4xl mb-2"></i>
+                <h2 class="font-serif text-2xl font-bold text-brand-dark">Welcome Back</h2>
+                <p class="text-gray-600 text-sm">Sign in to your Elite Wheels account</p>
+            </div>
+
+            <form class="space-y-4" onsubmit="handleLogin(event)">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                    <input type="email" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-brand-blue transition-all" placeholder="you@example.com">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                    <input type="password" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-brand-blue transition-all" placeholder="••••••••">
+                </div>
+                <div class="flex justify-between items-center text-sm">
+                    <label class="flex items-center">
+                        <input type="checkbox" class="mr-2 text-brand-blue focus:ring-brand-blue">
+                        <span class="text-gray-600">Remember me</span>
+                    </label>
+                    <a href="#" class="text-brand-blue hover:underline">Forgot password?</a>
+                </div>
+                <button type="submit" class="w-full py-3 bg-brand-blue text-white font-bold rounded-lg hover:bg-brand-light transition-all">
+                    Sign In
+                </button>
+            </form>
+
+            <div class="mt-6 text-center text-sm text-gray-600">
+                Don't have an account? 
+                <button onclick="switchModal('loginModal', 'signupModal')" class="text-brand-blue font-semibold hover:underline">Sign up</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sign Up Modal -->
+    <div id="signupModal" class="modal fixed inset-0 z-50 items-center justify-center bg-black/80 backdrop-blur-sm p-4">
+        <div class="bg-white rounded-2xl max-w-md w-full p-8 relative animate-fade-in-up max-h-[90vh] overflow-y-auto">
+            <button onclick="closeModal('signupModal')" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-xl">
+                <i class="fas fa-times"></i>
+            </button>
+            
+            <div class="text-center mb-6">
+                <i class="fas fa-user-plus text-brand-yellow text-4xl mb-2"></i>
+                <h2 class="font-serif text-2xl font-bold text-brand-dark">Create Account</h2>
+                <p class="text-gray-600 text-sm">Join Elite Wheels today</p>
+            </div>
+
+            <form class="space-y-4" onsubmit="handleSignup(event)">
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">First Name</label>
+                        <input type="text" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-brand-blue transition-all" placeholder="John">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
+                        <input type="text" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-brand-blue transition-all" placeholder="Doe">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Email Address *</label>
+                    <input type="email" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-brand-blue transition-all" placeholder="you@example.com">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+                    <input type="tel" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-brand-blue transition-all" placeholder="+1 (555) 123-4567">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Password *</label>
+                    <input type="password" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-brand-blue transition-all" placeholder="Min 8 characters">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Confirm Password *</label>
+                    <input type="password" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-brand-blue transition-all" placeholder="Confirm password">
+                </div>
+                <div class="flex items-start space-x-2">
+                    <input type="checkbox" required class="mt-1 text-brand-blue focus:ring-brand-blue">
+                    <label class="text-sm text-gray-600">I agree to the <a href="#" class="text-brand-blue hover:underline">Terms of Service</a> and <a href="#" class="text-brand-blue hover:underline">Privacy Policy</a></label>
+                </div>
+                <button type="submit" class="w-full py-3 bg-brand-blue text-white font-bold rounded-lg hover:bg-brand-light transition-all">
+                    Create Account
+                </button>
+            </form>
+
+            <div class="mt-6 text-center text-sm text-gray-600">
+                Already have an account? 
+                <button onclick="switchModal('signupModal', 'loginModal')" class="text-brand-blue font-semibold hover:underline">Sign in</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Car Details Modal -->
+    <div id="carModal" class="modal fixed inset-0 z-50 items-center justify-center bg-black/90 backdrop-blur-sm p-4">
+        <div class="bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto relative animate-fade-in-up">
+            <button onclick="closeModal('carModal')" class="absolute top-4 right-4 z-10 w-10 h-10 bg-white/80 rounded-full flex items-center justify-center text-gray-800 hover:bg-white transition-all">
+                <i class="fas fa-times"></i>
+            </button>
+            
+            <div id="carModalContent">
+                <!-- Content populated by JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-24 left-1/2 transform -translate-x-1/2 bg-brand-dark text-white px-6 py-3 rounded-full shadow-2xl flex items-center space-x-3 transition-all duration-300 opacity-0 translate-y-10 z-50">
+        <i class="fas fa-check-circle text-brand-yellow"></i>
+        <span id="toastMessage">Operation successful</span>
+    </div>
+
+    <script>
+        // CONFIGURATION
+        const WHATSAPP_NUMBER = '2347047783396';
+        
+        // Data
+        const cars = [
+            {
+                id: 1,
+                name: "Rolls-Royce Phantom",
+                price: "$450,000",
+                category: "sedan",
+                image: "https://images.unsplash.com/photo-1563720360172-67b8f3dce741?w=800&q=80",
+                year: "2023",
+                mileage: "1,200 miles",
+                description: "The pinnacle of luxury. Handcrafted perfection with starlight headliner and bespoke interior.",
+                features: ["V12 Engine", "Bespoke Audio", "Air Suspension", "360° Cameras"]
+            },
+            {
+                id: 2,
+                name: "Mercedes-Benz G-Class",
+                price: "$180,000",
+                category: "suv",
+                image: "https://images.unsplash.com/photo-1520031441872-265e4ff70366?w=800&q=80",
+                year: "2023",
+                mileage: "3,500 miles",
+                description: "Iconic design meets modern luxury. The ultimate statement SUV.",
+                features: ["4MATIC AWD", "Burmeister Sound", "Diamond Stitching", "Three Diffs"]
+            },
+            {
+                id: 3,
+                name: "Porsche 911 Turbo S",
+                price: "$230,000",
+                category: "sports",
+                image: "https://images.unsplash.com/photo-1503376763036-066120622c74?w=800&q=80",
+                year: "2023",
+                mileage: "800 miles",
+                description: "Zero to sixty in 2.6 seconds. The everyday supercar.",
+                features: ["640 HP", "PDK Transmission", "Carbon Ceramic Brakes", "Sport Chrono"]
+            },
+            {
+                id: 4,
+                name: "Bentley Continental GT",
+                price: "$220,000",
+                category: "sports",
+                image: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=800&q=80",
+                year: "2022",
+                mileage: "5,000 miles",
+                description: "Grand touring redefined. Effortless power with handcrafted luxury.",
+                features: ["W12 Engine", "Mulliner Spec", "Rotating Display", "Air Suspension"]
+            },
+            {
+                id: 5,
+                name: "Range Rover Autobiography",
+                price: "$150,000",
+                category: "suv",
+                image: "https://images.unsplash.com/photo-1606220838315-056192d5e927?w=800&q=80",
+                year: "2023",
+                mileage: "2,100 miles",
+                description: "The most luxurious Range Rover ever created.",
+                features: ["Long Wheelbase", "Executive Seats", "Meridian Audio", "Terrain Response"]
+            },
+            {
+                id: 6,
+                name: "BMW 7 Series",
+                price: "$120,000",
+                category: "sedan",
+                image: "https://images.unsplash.com/photo-1555215695-3004980adade?w=800&q=80",
+                year: "2023",
+                mileage: "4,200 miles",
+                description: "Executive luxury with cutting-edge technology.",
+                features: ["Rear Theater", "Massage Seats", "Sky Lounge", "Hybrid Power"]
+            }
+        ];
+
+        const giveawayCars = [
+            {
+                id: 1,
+                name: "2018 Toyota Camry",
+                image: "https://images.unsplash.com/photo-1621007947382-bb3c3968e3bb?w=600&q=80",
+                description: "Reliable sedan, 85k miles, well maintained. Perfect for daily commute.",
+                condition: "Good"
+            },
+            {
+                id: 2,
+                name: "2017 Honda Accord",
+                image: "https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=600&q=80",
+                description: "Spacious family car, 92k miles, recent service completed.",
+                condition: "Very Good"
+            },
+            {
+                id: 3,
+                name: "2016 Nissan Altima",
+                image: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=600&q=80",
+                description: "Fuel efficient, 105k miles, new tires and brakes.",
+                condition: "Fair"
+            }
+        ];
+
+        const faqs = [
+            {
+                question: "How does the car giveaway program work?",
+                answer: "Our giveaway program provides reliable used vehicles to individuals and families in need. Applicants submit their situation, and our team reviews applications monthly. Selected recipients receive the vehicle at no cost."
+            },
+            {
+                question: "What are the requirements to apply?",
+                answer: "Applicants must be 18+, have a valid driver's license, and demonstrate genuine need. We prioritize individuals facing transportation barriers that affect employment or family care."
+            },
+            {
+                question: "Are the giveaway cars reliable?",
+                answer: "Yes! All giveaway vehicles undergo thorough inspection and necessary repairs before being awarded. We ensure they are safe and reliable for daily use."
+            },
+            {
+                question: "Can I trade in my current vehicle?",
+                answer: "Absolutely! We accept trade-ins toward any vehicle purchase. Contact us via WhatsApp or visit our showroom for a free appraisal."
+            }
+        ];
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            renderCars('all');
+            renderGiveawayCars();
+            renderFAQs();
+            initScrollEffects();
+            initGiveawayForm();
+        });
+
+        // Render Functions
+        function renderCars(filter) {
+            const grid = document.getElementById('carsGrid');
+            const filtered = filter === 'all' ? cars : cars.filter(c => c.category === filter);
+            
+            grid.innerHTML = filtered.map(car => `
+                <div class="car-card bg-white rounded-2xl overflow-hidden shadow-lg hover-lift group cursor-pointer" onclick="openCarModal(${car.id})">
+                    <div class="relative overflow-hidden h-64">
+                        <img src="${car.image}" alt="${car.name}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="car-overlay absolute inset-0 bg-black/60 flex items-center justify-center">
+                            <button class="px-6 py-3 bg-brand-yellow text-brand-blue font-bold rounded-full transform translate-y-4 group-hover:translate-y-0 transition-transform">
+                                View Details
+                            </button>
+                        </div>
+                        <div class="absolute top-4 right-4 bg-brand-yellow text-brand-blue px-3 py-1 rounded-full text-sm font-bold">
+                            ${car.price}
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="font-serif text-xl font-bold text-brand-dark">${car.name}</h3>
+                            <span class="text-sm text-gray-500">${car.year}</span>
+                        </div>
+                        <p class="text-gray-600 text-sm mb-4 line-clamp-2">${car.description}</p>
+                        <div class="flex items-center justify-between pt-4 border-t border-gray-100">
+                            <span class="text-sm text-gray-500"><i class="fas fa-tachometer-alt mr-1"></i> ${car.mileage}</span>
+                            <button class="text-brand-blue font-semibold text-sm hover:text-brand-yellow transition-colors">
+                                Details <i class="fas fa-arrow-right ml-1"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderGiveawayCars() {
+            const container = document.getElementById('giveawayGrid');
+            container.innerHTML = giveawayCars.map(car => `
+                <div class="bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/20 flex gap-4 hover:bg-white/20 transition-all cursor-pointer group">
+                    <img src="${car.image}" alt="${car.name}" class="w-24 h-24 object-cover rounded-lg flex-shrink-0">
+                    <div class="flex-1">
+                        <div class="flex justify-between items-start mb-1">
+                            <h4 class="font-bold text-lg group-hover:text-brand-yellow transition-colors">${car.name}</h4>
+                            <span class="text-xs bg-brand-yellow/20 text-brand-yellow px-2 py-1 rounded">${car.condition}</span>
+                        </div>
+                        <p class="text-sm text-gray-300 mb-2 line-clamp-2">${car.description}</p>
+                        <button onclick="selectGiveawayCar('${car.name}')" class="text-sm text-brand-yellow hover:underline font-semibold">
+                            Apply for this car <i class="fas fa-arrow-right ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderFAQs() {
+            const container = document.getElementById('faqContainer');
+            container.innerHTML = faqs.map((faq, index) => `
+                <div class="border border-gray-200 rounded-lg overflow-hidden">
+                    <button onclick="toggleFAQ(${index})" class="w-full px-6 py-4 text-left flex justify-between items-center bg-white hover:bg-gray-50 transition-colors">
+                        <span class="font-semibold text-brand-dark">${faq.question}</span>
+                        <i id="faq-icon-${index}" class="fas fa-chevron-down text-brand-blue transition-transform"></i>
+                    </button>
+                    <div id="faq-answer-${index}" class="hidden px-6 py-4 bg-gray-50 text-gray-600 border-t border-gray-200">
+                        ${faq.answer}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Interactive Functions
+        function filterCars(category) {
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                if(btn.dataset.filter === category) {
+                    btn.classList.add('bg-brand-blue', 'text-white');
+                    btn.classList.remove('text-brand-blue');
+                } else {
+                    btn.classList.remove('bg-brand-blue', 'text-white');
+                    btn.classList.add('text-brand-blue');
+                }
+            });
+            
+            const grid = document.getElementById('carsGrid');
+            grid.style.opacity = '0';
+            grid.style.transform = 'translateY(20px)';
+            grid.style.transition = 'all 0.3s ease';
+            
+            setTimeout(() => {
+                renderCars(category);
+                grid.style.opacity = '1';
+                grid.style.transform = 'translateY(0)';
+            }, 300);
+        }
+
+        function toggleFAQ(index) {
+            const answer = document.getElementById(`faq-answer-${index}`);
+            const icon = document.getElementById(`faq-icon-${index}`);
+            
+            if(answer.classList.contains('hidden')) {
+                answer.classList.remove('hidden');
+                icon.style.transform = 'rotate(180deg)';
+            } else {
+                answer.classList.add('hidden');
+                icon.style.transform = 'rotate(0deg)';
+            }
+        }
+
+        function selectGiveawayCar(carName) {
+            const select = document.querySelector('select[name="car_preference"]');
+            if(select) {
+                const options = Array.from(select.options);
+                const option = options.find(o => o.value === carName);
+                if(option) select.value = carName;
+            }
+            document.getElementById('giveaway').scrollIntoView({ behavior: 'smooth' });
+            showToast(`Selected ${carName} in form below`);
+        }
+
+        // Initialize Giveaway Form Handling
+        function initGiveawayForm() {
+            const form = document.getElementById('giveawayForm');
+            const submitBtn = document.getElementById('submitBtn');
+            const btnText = document.getElementById('btnText');
+            const btnIcon = document.getElementById('btnIcon');
+            const formStatus = document.getElementById('formStatus');
+            
+            form.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                // Show loading state
+                submitBtn.disabled = true;
+                btnText.textContent = 'Sending Application...';
+                btnIcon.className = 'loading-spinner';
+                
+                try {
+                    const formData = new FormData(form);
+                    const response = await fetch(form.action, {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'Accept': 'application/json'
+                        }
+                    });
+                    
+                    if (response.ok) {
+                        // Success
+                        formStatus.className = 'mt-4 p-4 rounded-lg text-center bg-green-500/20 border border-green-500/30 text-green-200';
+                        formStatus.innerHTML = '<i class="fas fa-check-circle mr-2"></i>Application submitted successfully! Check your email for confirmation.';
+                        formStatus.classList.remove('hidden');
+                        form.reset();
+                        
+                        showToast('Application sent successfully!');
+                    } else {
+                        throw new Error('Form submission failed');
+                    }
+                } catch (error) {
+                    // Error
+                    formStatus.className = 'mt-4 p-4 rounded-lg text-center bg-red-500/20 border border-red-500/30 text-red-200';
+                    formStatus.innerHTML = '<i class="fas fa-exclamation-circle mr-2"></i>There was an error submitting your application. Please try again or contact us via WhatsApp.';
+                    formStatus.classList.remove('hidden');
+                    
+                    showToast('Error sending application. Please try again.');
+                } finally {
+                    // Reset button
+                    submitBtn.disabled = false;
+                    btnText.textContent = 'Submit Application';
+                    btnIcon.className = 'fas fa-paper-plane';
+                }
+            });
+        }
+
+        // Modal Functions
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        function switchModal(closeId, openId) {
+            closeModal(closeId);
+            setTimeout(() => openModal(openId), 300);
+        }
+
+        function openCarModal(carId) {
+            const car = cars.find(c => c.id === carId);
+            if(!car) return;
+            
+            const content = document.getElementById('carModalContent');
+            content.innerHTML = `
+                <div class="grid md:grid-cols-2">
+                    <div class="h-64 md:h-full">
+                        <img src="${car.image}" class="w-full h-full object-cover rounded-t-2xl md:rounded-l-2xl md:rounded-tr-none">
+                    </div>
+                    <div class="p-8">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <h2 class="font-serif text-3xl font-bold text-brand-dark mb-1">${car.name}</h2>
+                                <p class="text-gray-500">${car.year} • ${car.mileage}</p>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-3xl font-bold text-brand-blue">${car.price}</div>
+                                <div class="text-sm text-gray-500">or financing</div>
+                            </div>
+                        </div>
+                        
+                        <p class="text-gray-600 mb-6 leading-relaxed">${car.description}</p>
+                        
+                        <div class="mb-6">
+                            <h4 class="font-bold text-brand-dark mb-3">Key Features</h4>
+                            <div class="grid grid-cols-2 gap-2">
+                                ${car.features.map(f => `
+                                    <div class="flex items-center space-x-2 text-sm text-gray-600">
+                                        <i class="fas fa-check text-brand-yellow"></i>
+                                        <span>${f}</span>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                        
+                        <div class="space-y-3">
+                            <button onclick="showToast('Purchase inquiry sent!'); closeModal('carModal')" class="w-full py-3 bg-brand-blue text-white font-bold rounded-lg hover:bg-brand-light transition-all flex items-center justify-center space-x-2">
+                                <i class="fas fa-shopping-cart"></i>
+                                <span>Buy Now</span>
+                            </button>
+                            <button onclick="openWhatsApp()" class="w-full py-3 border-2 border-brand-blue text-brand-blue font-bold rounded-lg hover:bg-brand-blue hover:text-white transition-all flex items-center justify-center space-x-2">
+                                <i class="fab fa-whatsapp"></i>
+                                <span>Ask Question on WhatsApp</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            openModal('carModal');
+        }
+
+        // Form Handlers
+        function handleLogin(e) {
+            e.preventDefault();
+            showToast('Login successful! Welcome back.');
+            closeModal('loginModal');
+        }
+
+        function handleSignup(e) {
+            e.preventDefault();
+            showToast('Account created! Please check your email for verification.');
+            closeModal('signupModal');
+        }
+
+        function handleContactSubmit(e) {
+            e.preventDefault();
+            showToast('Message sent! We will respond within 24 hours.');
+            e.target.reset();
+        }
+
+        // WhatsApp Integration
+        function openWhatsApp() {
+            const cleanNumber = WHATSAPP_NUMBER.toString().replace(/\D/g, '');
+            const message = 'Hello Elite Wheels! I would like to inquire about your cars.';
+            const whatsappURL = `https://wa.me/${cleanNumber}?text=${encodeURIComponent(message)}`;
+            window.open(whatsappURL, '_blank');
+        }
+
+        // UI Utilities
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMessage').textContent = message;
+            toast.classList.remove('opacity-0', 'translate-y-10');
+            
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'translate-y-10');
+            }, 3000);
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Scroll Effects
+        function initScrollEffects() {
+            const navbar = document.getElementById('navbar');
+            
+            window.addEventListener('scroll', () => {
+                if(window.scrollY > 50) {
+                    navbar.classList.remove('nav-transparent');
+                    navbar.classList.add('nav-scrolled');
+                } else {
+                    navbar.classList.add('nav-transparent');
+                    navbar.classList.remove('nav-scrolled');
+                }
+            });
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if(entry.isIntersecting) {
+                        entry.target.classList.add('animate-fade-in-up');
+                        entry.target.style.opacity = '1';
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('section').forEach(section => {
+                section.style.opacity = '0';
+                observer.observe(section);
+            });
+        }
+
+        // Close modals on outside click
+        window.onclick = function(event) {
+            if(event.target.classList.contains('modal')) {
+                event.target.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        }
+    </script>
+</body>
+</html>
