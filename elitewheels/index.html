@@ -333,7 +333,8 @@
                         Apply for a Car
                     </h3>
                     
-                    <form id="giveawayForm" action="https://formspree.io/f/maqpwdwq="POST" class="space-y-4">
+                    <!-- FIXED: Removed space from URL -->
+                    <form id="giveawayForm" action="https://formspree.io/f/maqpwdwq" method="POST" class="space-y-4">
                         
                         <!-- Hidden field to identify this is a giveaway application -->
                         <input type="hidden" name="_subject" value="New Car Giveaway Application - Elite Wheels">
@@ -381,9 +382,6 @@
                             <input type="checkbox" name="terms_agreed" value="Yes" required class="mt-1 w-4 h-4 rounded border-white/30 bg-white/10 text-brand-yellow focus:ring-brand-yellow">
                             <label class="text-sm text-gray-300">I confirm that the information provided is accurate and I agree to the terms and conditions.</label>
                         </div>
-                        
-                        <!-- Redirect after submission -->
-                        <input type="hidden" name="_next" value="https://yourdomain.com/thank-you.html">
                         
                         <button type="submit" id="submitBtn" class="w-full py-4 bg-brand-yellow text-brand-blue font-bold rounded-lg hover:bg-white transition-all transform hover:scale-[1.02] flex items-center justify-center space-x-2">
                             <span id="btnText">Submit Application</span>
@@ -1047,10 +1045,6 @@
                 btnIcon.className = 'loading-spinner';
                 
                 try {
-                    if (form.action.includes('YOUR_GIVEAWAY_FORM_ID')) {
-                        throw new Error('Form not configured');
-                    }
-                    
                     const formData = new FormData(form);
                     const response = await fetch(form.action, {
                         method: 'POST',
@@ -1089,7 +1083,7 @@
             });
         }
 
-        // Initialize Contact Form Handling - THIS IS THE NEW FUNCTION
+        // Initialize Contact Form Handling
         function initContactForm() {
             const form = document.getElementById('contactForm');
             const submitBtn = document.getElementById('contactSubmitBtn');
@@ -1281,4 +1275,3 @@
     </script>
 </body>
 </html>
-
