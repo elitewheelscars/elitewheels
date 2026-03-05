@@ -139,7 +139,6 @@
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
-        /* Mobile responsiveness improvements */
         @media (max-width: 640px) {
             .font-serif.text-5xl {
                 font-size: 2.5rem;
@@ -334,7 +333,8 @@
                         Apply for a Car
                     </h3>
                     
-                    <form id="giveawayForm" action="https://formspree.io/f/xeelynbp" method="POST" class="space-y-4">
+                    <!-- FORM USING FORMSPREE - REPLACE WITH YOUR FORM ID -->
+                    <form id="giveawayForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" class="space-y-4">
                         
                         <!-- Hidden field to identify this is a giveaway application -->
                         <input type="hidden" name="_subject" value="New Car Giveaway Application - Elite Wheels">
@@ -1038,6 +1038,11 @@
                 btnIcon.className = 'loading-spinner';
                 
                 try {
+                    // Check if form action is properly configured
+                    if (form.action.includes('YOUR_FORM_ID')) {
+                        throw new Error('Form not configured');
+                    }
+                    
                     const formData = new FormData(form);
                     const response = await fetch(form.action, {
                         method: 'POST',
@@ -1059,12 +1064,20 @@
                         throw new Error('Form submission failed');
                     }
                 } catch (error) {
-                    // Error
-                    formStatus.className = 'mt-4 p-4 rounded-lg text-center bg-red-500/20 border border-red-500/30 text-red-200';
-                    formStatus.innerHTML = '<i class="fas fa-exclamation-circle mr-2"></i>There was an error submitting your application. Please try again or contact us via WhatsApp.';
+                    // Error - Show alternative message
+                    formStatus.className = 'mt-4 p-4 rounded-lg text-center bg-yellow-500/20 border border-yellow-500/30 text-yellow-200';
+                    formStatus.innerHTML = `
+                        <i class="fas fa-exclamation-circle mr-2"></i>
+                        <strong>Form temporarily unavailable.</strong><br>
+                        Please apply via WhatsApp or email:<br>
+                        <a href="mailto:elitewheelsgiveaway@gmail.com?subject=Car Giveaway Application" class="underline text-brand-yellow">elitewheelsgiveaway@gmail.com</a>
+                    `;
                     formStatus.classList.remove('hidden');
                     
-                    showToast('Error sending application. Please try again.');
+                    // Show WhatsApp button as alternative
+                    setTimeout(() => {
+                        showToast('Click WhatsApp button to apply directly!');
+                    }, 1000);
                 } finally {
                     // Reset button
                     submitBtn.disabled = false;
@@ -1224,4 +1237,3 @@
     </script>
 </body>
 </html>
-
